@@ -48,14 +48,14 @@ Original Author: Shay Gal-on
         Define to 1 if the platform has stdio.h.
 */
 #ifndef HAS_STDIO
-#define HAS_STDIO 0
+#define HAS_STDIO 1
 #endif
 /* Configuration : HAS_PRINTF
         Define to 1 if the platform has stdio.h and implements the printf
    function.
 */
 #ifndef HAS_PRINTF
-#define HAS_PRINTF 0
+#define HAS_PRINTF 1
 #endif
 
 /* Definitions : COMPILER_VERSION, COMPILER_FLAGS, MEM_LOCATION
@@ -65,12 +65,11 @@ Original Author: Shay Gal-on
 #ifdef __GNUC__
 #define COMPILER_VERSION "GCC"__VERSION__
 #else
-#define COMPILER_VERSION "Please put compiler version here (e.g. gcc 4.1)"
+#define COMPILER_VERSION "MDK"
 #endif
 #endif
 #ifndef COMPILER_FLAGS
-#define COMPILER_FLAGS \
-    FLAGS_STR /* "Please put compiler flags here (e.g. -o3)" */
+#define COMPILER_FLAGS "-O2"
 #endif
 #ifndef MEM_LOCATION
 #define MEM_LOCATION "STACK"
@@ -87,11 +86,11 @@ Original Author: Shay Gal-on
 typedef signed short   ee_s16;
 typedef unsigned short ee_u16;
 typedef signed int     ee_s32;
-typedef double         ee_f32;
+typedef float          ee_f32;
 typedef unsigned char  ee_u8;
 typedef unsigned int   ee_u32;
 typedef ee_u32         ee_ptr_int;
-typedef size_t         ee_size_t;
+typedef ee_u32         ee_size_t;
 #define NULL ((void *)0)
 /* align_mem :
         This macro is used to align an offset to point to a 32b value. It is
@@ -127,7 +126,7 @@ typedef ee_u32 CORE_TICKS;
         MEM_STACK - to allocate the data block on the stack (NYI).
 */
 #ifndef MEM_METHOD
-#define MEM_METHOD MEM_STACK
+#define MEM_METHOD MEM_STATIC
 #endif
 
 /* Configuration : MULTITHREAD
@@ -166,7 +165,7 @@ typedef ee_u32 CORE_TICKS;
    greater then 1.
 */
 #ifndef MAIN_HAS_NOARGC
-#define MAIN_HAS_NOARGC 0
+#define MAIN_HAS_NOARGC 1
 #endif
 
 /* Configuration : MAIN_HAS_NORETURN

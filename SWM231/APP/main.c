@@ -1,26 +1,17 @@
 #include "SWM231.h"
 
+
 void SerialInit(void);
 
 
-int main(void)
+void hw_init(void)
 {
 	SystemInit();
 	
 	SerialInit();
- 	
-	GPIO_Init(GPIOA, PIN5, 1, 0, 0, 0);		//GPIOA.5接LED
 	
-	GPIO_INIT(GPIOA, PIN5, GPIO_OUTPUT);	//同上，另一种可读性更好的写法
-	
- 	while(1==1)
- 	{
- 		GPIO_InvBit(GPIOA, PIN5);
-  		
-     	printf("Hi, World!\r\n");
-		
-		for(int i=0; i<SystemCoreClock/64; i++) __NOP();
- 	}
+	TIMR_Init(BTIMR0, TIMR_MODE_TIMER, CyclesPerUs, 0xFFFFFF, 0);
+	TIMR_Start(BTIMR0);
 }
 
 

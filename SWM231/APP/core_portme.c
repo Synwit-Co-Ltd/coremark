@@ -18,6 +18,11 @@ Original Author: Shay Gal-on
 #include "coremark.h"
 #include "core_portme.h"
 
+#include "SWM231.h"
+
+void hw_init(void);
+
+
 #if VALIDATION_RUN
 volatile ee_s32 seed1_volatile = 0x3415;
 volatile ee_s32 seed2_volatile = 0x3415;
@@ -44,8 +49,7 @@ volatile ee_s32 seed5_volatile = 0;
 CORETIMETYPE
 barebones_clock()
 {
-#error \
-    "You must implement a method to measure time in barebones_clock()! This function should return current time.\n"
+	return BTIMR0->LOAD - BTIMR0->VALUE;
 }
 /* Define : TIMER_RES_DIVIDER
         Divider to trade off timer resolution and total time that can be
@@ -57,9 +61,7 @@ barebones_clock()
         */
 #define GETMYTIME(_t)              (*_t = barebones_clock())
 #define MYTIMEDIFF(fin, ini)       ((fin) - (ini))
-#define TIMER_RES_DIVIDER          1
-#define SAMPLE_TIME_IMPLEMENTATION 1
-#define EE_TICKS_PER_SEC           (CLOCKS_PER_SEC / TIMER_RES_DIVIDER)
+#define EE_TICKS_PER_SEC           1000000
 
 /** Define Host specific (POSIX), or target specific global time variables. */
 static CORETIMETYPE start_time_val, stop_time_val;
@@ -129,8 +131,7 @@ ee_u32 default_num_contexts = 1;
 void
 portable_init(core_portable *p, int *argc, char *argv[])
 {
-#error \
-    "Call board initialization routines in portable init (if needed), in particular initialize UART!\n"
+	hw_init();
 
     (void)argc; // prevent unused warning
     (void)argv; // prevent unused warning
@@ -154,4 +155,6 @@ void
 portable_fini(core_portable *p)
 {
     p->portable_id = 0;
+	
+	while(1) {}
 }

@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>3</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -337,7 +337,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>CHIP_SWM231</Define>
+              <Define>CHIP_SWM231, ITERATIONS=150</Define>
               <Undefine></Undefine>
               <IncludePath>.\CSL\CMSIS\CoreSupport;.\CSL\CMSIS\DeviceSupport;.\CSL\SWM231_StdPeriph_Driver;..\coremark;.\APP</IncludePath>
             </VariousControls>
