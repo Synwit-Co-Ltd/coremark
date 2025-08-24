@@ -18,7 +18,8 @@ Original Author: Shay Gal-on
 #include "coremark.h"
 #include "core_portme.h"
 
-#include "SWM221.h"
+
+extern volatile int SysTick_10ms;
 
 void hw_init(void);
 
@@ -49,7 +50,7 @@ volatile ee_s32 seed5_volatile = 0;
 CORETIMETYPE
 barebones_clock()
 {
-	return BTIMR0->LOAD - BTIMR0->VALUE;
+	return SysTick_10ms;
 }
 /* Define : TIMER_RES_DIVIDER
         Divider to trade off timer resolution and total time that can be
@@ -61,7 +62,7 @@ barebones_clock()
         */
 #define GETMYTIME(_t)              (*_t = barebones_clock())
 #define MYTIMEDIFF(fin, ini)       ((fin) - (ini))
-#define EE_TICKS_PER_SEC           1000000
+#define EE_TICKS_PER_SEC           100
 
 /** Define Host specific (POSIX), or target specific global time variables. */
 static CORETIMETYPE start_time_val, stop_time_val;
