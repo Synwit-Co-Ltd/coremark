@@ -1,6 +1,9 @@
 #include "SWM341.h"
 
 
+volatile int SysTick_10ms = 0;
+
+
 void SerialInit(void);
 
 
@@ -10,8 +13,15 @@ void hw_init(void)
 	
 	SerialInit();
 	
-	TIMR_Init(BTIMR0, TIMR_MODE_TIMER, CyclesPerUs, 0xFFFFFF, 0);
-	TIMR_Start(BTIMR0);
+	SysTick_Config(SystemCoreClock / 100);
+	
+	printf("SystemCoreClock = %d\n\n", SystemCoreClock);
+}
+
+
+void SysTick_Handler(void)
+{
+	SysTick_10ms++;
 }
 
 
